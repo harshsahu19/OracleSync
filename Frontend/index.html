@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oracle Sync - Decentralized Oracle Network</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.1/ethers.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">🔮 Oracle Sync</h1>
+                <p class="tagline">Decentralized Oracle Network</p>
+                <div class="connection-status" id="connectionStatus">
+                    <span class="status-indicator" id="statusIndicator"></span>
+                    <span id="walletAddress">Not Connected</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Connection Section -->
+            <section class="card connect-section">
+                <h2>🌐 Wallet Connection</h2>
+                <button id="connectWallet" class="btn btn-primary">Connect MetaMask</button>
+                <div id="accountInfo" class="account-info" style="display: none;">
+                    <p><strong>Connected Account:</strong> <span id="accountAddress"></span></p>
+                    <p><strong>Network:</strong> <span id="networkName"></span></p>
+                    <p><strong>Balance:</strong> <span id="balance"></span> ETH</p>
+                </div>
+            </section>
+
+            <!-- Data Feed Query Section -->
+            <section class="card">
+                <h2>📊 Query Data Feed</h2>
+                <div class="form-group">
+                    <label for="queryKey">Data Feed Key:</label>
+                    <input type="text" id="queryKey" placeholder="e.g., ETH_USD, BTC_USD, TEMPERATURE">
+                    <button id="queryData" class="btn btn-secondary">Query Data</button>
+                </div>
+                <div id="queryResult" class="result-box"></div>
+            </section>
+
+            <!-- Update Data Feed Section -->
+            <section class="card">
+                <h2>📈 Update Data Feed</h2>
+                <div class="form-group">
+                    <label for="updateKey">Data Feed Key:</label>
+                    <input type="text" id="updateKey" placeholder="e.g., ETH_USD">
+                </div>
+                <div class="form-group">
+                    <label for="updateValue">Value:</label>
+                    <input type="number" id="updateValue" placeholder="e.g., 2500.50" step="0.01">
+                </div>
+                <button id="updateData" class="btn btn-success">Update Data Feed</button>
+                <div id="updateResult" class="result-box"></div>
+            </section>
+
+            <!-- Provider Management Section -->
+            <section class="card">
+                <h2>👥 Provider Management</h2>
+                <div class="form-group">
+                    <label for="providerAddress">Provider Address:</label>
+                    <input type="text" id="providerAddress" placeholder="0x...">
+                </div>
+                <div class="form-group">
+                    <label for="authorizeAction">Action:</label>
+                    <select id="authorizeAction">
+                        <option value="true">Authorize</option>
+                        <option value="false">Revoke</option>
+                    </select>
+                </div>
+                <button id="manageProvider" class="btn btn-warning">Manage Provider</button>
+                <div id="providerResult" class="result-box"></div>
+            </section>
+
+            <!-- Live Data Feeds -->
+            <section class="card">
+                <h2>📡 Live Data Feeds</h2>
+                <div class="data-feeds-container">
+                    <div class="data-feed-item">
+                        <h3>ETH/USD</h3>
+                        <div class="feed-value" id="ethUsdValue">Loading...</div>
+                        <div class="feed-timestamp" id="ethUsdTime">-</div>
+                    </div>
+                    <div class="data-feed-item">
+                        <h3>BTC/USD</h3>
+                        <div class="feed-value" id="btcUsdValue">Loading...</div>
+                        <div class="feed-timestamp" id="btcUsdTime">-</div>
+                    </div>
+                    <div class="data-feed-item">
+                        <h3>Custom Feed</h3>
+                        <div class="feed-value" id="customValue">No Data</div>
+                        <div class="feed-timestamp" id="customTime">-</div>
+                    </div>
+                </div>
+                <button id="refreshFeeds" class="btn btn-secondary">Refresh All Feeds</button>
+            </section>
+
+            <!-- Contract Information -->
+            <section class="card">
+                <h2>📋 Contract Information</h2>
+                <div class="contract-info">
+                    <p><strong>Contract Address:</strong> <span id="contractAddress">Not Set</span></p>
+                    <p><strong>Owner:</strong> <span id="contractOwner">Loading...</span></p>
+                    <p><strong>Your Role:</strong> <span id="userRole">Checking...</span></p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Transaction Modal -->
+        <div id="transactionModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🔄 Transaction Status</h3>
+                    <span class="close" id="closeModal">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="loading-spinner" id="loadingSpinner"></div>
+                    <p id="transactionMessage">Processing transaction...</p>
+                    <p id="transactionHash"></p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2025 Oracle Sync. Decentralized Oracle Network for Web3.</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
